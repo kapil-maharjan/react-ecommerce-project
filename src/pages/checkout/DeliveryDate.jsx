@@ -6,9 +6,13 @@ export function DeliveryDate({ cartItem, deliveryOptions }) {
       return deliveryOption.id === cartItem.deliveryOptionId;
     });
 
+    if(!selectedDeliveryOption) {
+      return null;
+    }
+
   return (
     <div className="delivery-date">
-      Delivery date:{dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs,).format("dddd, MMMM D")}
+      Delivery date: {dayjs(selectedDeliveryOption.estimatedDeliveryTimeMs).format("dddd, MMMM D")}
     </div>
   );
 }
