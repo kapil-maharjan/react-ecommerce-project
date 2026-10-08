@@ -49,7 +49,7 @@ export function Product({ product, loadCart }) {
         <img
           className="product-image"
           data-testid="product-image"
-          src={`${BASE_URL}${product.image}`}
+          src={`${BASE_URL}/${product.image}`}
         />
       </div>
 
