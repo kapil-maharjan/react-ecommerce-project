@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 
 // 💡 1. Add live Render backend URL constant
-const BASE_URL = "https://onrender.com";
+const BASE_URL = "https://ecommerce-backend-hs0o.onrender.com";
 
 export function PaymentSummary({ paymentSummary, loadCart }) {
   const navigate = useNavigate();

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { OrderSummary } from "./OrderSummary";
 
 // 💡 1. กำหนดค่า URL หลังบ้านบน Render
-const BASE_URL = "https://onrender.com";
+const BASE_URL = "https://ecommerce-backend-hs0o.onrender.com";
 
 export function CheckoutPage({ cart, loadCart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);

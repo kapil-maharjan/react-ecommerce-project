@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import { useState, useEffect } from "react";
 
 // 💡 1. กำหนดค่า URL หลังบ้านบน Render
-const BASE_URL = "https://onrender.com";
+const BASE_URL = "https://ecommerce-backend-hs0o.onrender.com";
 
 export function TrackingPage({ cart }) {
   const { orderId, productId } = useParams();
@@ -70,7 +70,7 @@ export function TrackingPage({ cart }) {
           {/* 💡 3. แก้บัครูปแตก: เติม BASE_URL หน้าพาธรูปภาพ */}
           <img
             className="product-image"
-            src={`${BASE_URL}${orderProduct.product.image}`}
+            src={`${BASE_URL}/${orderProduct.product.image}`}
           />
 
           <div className="progress-labels-container">
