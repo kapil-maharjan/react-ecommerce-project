@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 // 💡 1. Add live Render backend URL constant
-const BASE_URL = "https://onrender.com";
+const BASE_URL = "https://ecommerce-backend-hs0o.onrender.com";
 
 export function OrderDetailsGrid({ order, loadCart }) {
   return (

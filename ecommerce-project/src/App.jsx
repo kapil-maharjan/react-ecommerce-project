@@ -1,22 +1,30 @@
-import { Routes, Route } from 'react-router';
-import './App.css';
-import { HomePage } from './pages/home/HomePage';
-import { CheckoutPage } from './pages/checkout/CheckoutPage';
-import { OrdersPage } from './pages/orders/OrdersPage';
-import { TrackingPage } from './pages/TrackingPage';
-import { NotFoundPage } from './pages/NotFoundPage';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Routes, Route } from "react-router";
+import "./App.css";
+import { HomePage } from "./pages/home/HomePage";
+import { CheckoutPage } from "./pages/checkout/CheckoutPage";
+import { OrdersPage } from "./pages/orders/OrdersPage";
+import { TrackingPage } from "./pages/TrackingPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 window.axios = axios;
+
+// 💡 1. Add live Render backend URL
+const BASE_URL = "https://ecommerce-backend-hs0o.onrender.com";
 
 function App() {
   const [cart, setCart] = useState([]);
 
-  const loadCart = async() => {
-      const response = await axios.get('/api/cart-items?expand=product')
-      setCart(response.data);
-    };
+  const loadCart = async () => {
+    // const response = await axios.get('/api/cart-items?expand=product')
+    // setCart(response.data);
+
+    const response = await axios.get(
+      `${BASE_URL}/api/cart-items?expand=product`,
+    );
+    setCart(response.data);
+  };
 
   useEffect(() => {
     loadCart();
@@ -25,13 +33,21 @@ function App() {
   return (
     <Routes>
       <Route index element={<HomePage cart={cart} loadCart={loadCart} />} />
-      <Route path="checkout" element={<CheckoutPage cart={cart} loadCart={loadCart} />} />
-      <Route path="orders" element={<OrdersPage cart={cart} loadCart={loadCart} />} />
-      <Route path="tracking/:orderId/:productId" element={<TrackingPage cart={cart} />} />
+      <Route
+        path="checkout"
+        element={<CheckoutPage cart={cart} loadCart={loadCart} />}
+      />
+      <Route
+        path="orders"
+        element={<OrdersPage cart={cart} loadCart={loadCart} />}
+      />
+      <Route
+        path="tracking/:orderId/:productId"
+        element={<TrackingPage cart={cart} />}
+      />
       <Route path="*" element={<NotFoundPage cart={cart} />} />
     </Routes>
   );
-   
 }
 
-export default App
+export default App;
