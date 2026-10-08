@@ -1,18 +1,22 @@
 import dayjs from "dayjs";
 import BuyAgainIcon from "../../assets/images/icons/buy-again.png";
-import { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
+// 💡 1. Add live Render backend URL constant
+const BASE_URL = "https://onrender.com";
 
 export function OrderDetailsGrid({ order, loadCart }) {
-
   return (
     <div className="order-details-grid">
       {order.products.map((orderProduct) => {
         const addToCart = async () => {
-          await axios.post('/api/cart-items', {
+          // 💡 2. Update this line to use the absolute BASE_URL path
+          await axios.post(`${BASE_URL}/api/cart-items`, {
+            // await axios.post('/api/cart-items', {
             productId: orderProduct.product.id,
-            quantity: 1
+            quantity: 1,
           });
           await loadCart();
         };
@@ -32,7 +36,7 @@ export function OrderDetailsGrid({ order, loadCart }) {
               <div className="product-quantity">
                 Quantity: {orderProduct.quantity}
               </div>
-              <button 
+              <button
                 className="buy-again-button button-primary"
                 onClick={addToCart}
               >

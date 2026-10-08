@@ -1,21 +1,26 @@
-import { formatMoney } from '../../utils/money';
-import axios from 'axios';
-import { useNavigate } from 'react-router';
+import { formatMoney } from "../../utils/money";
+import axios from "axios";
+import { useNavigate } from "react-router";
+
+// 💡 1. Add live Render backend URL constant
+const BASE_URL = "https://onrender.com";
 
 export function PaymentSummary({ paymentSummary, loadCart }) {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const createOrder = async() => {
-    await axios.post('/api/orders');
+  const createOrder = async () => {
+    // 💡 2. Update this line to use the absolute BASE_URL path
+    // await axios.post('/api/orders');
+    await axios.post(`${BASE_URL}/api/orders`);
     await loadCart();
-    navigate('/orders');
+    navigate("/orders");
   };
   return (
     <div className="payment-summary">
       <div className="payment-summary-title">Payment Summary</div>
       {paymentSummary && (
         <>
-          <div 
+          <div
             className="payment-summary-row"
             data-testid="payment-summary-product-cost"
           >
@@ -25,7 +30,7 @@ const navigate = useNavigate();
             </div>
           </div>
 
-          <div 
+          <div
             className="payment-summary-row"
             data-testid="payment-summary-shipping-cost"
           >
@@ -35,7 +40,7 @@ const navigate = useNavigate();
             </div>
           </div>
 
-          <div 
+          <div
             className="payment-summary-row subtotal-row"
             data-testid="payment-summary-total-before-tax"
           >
@@ -45,7 +50,7 @@ const navigate = useNavigate();
             </div>
           </div>
 
-          <div 
+          <div
             className="payment-summary-row"
             data-testid="payment-summary-tax"
           >
@@ -55,7 +60,7 @@ const navigate = useNavigate();
             </div>
           </div>
 
-          <div 
+          <div
             className="payment-summary-row total-row"
             data-testid="payment-summary-total"
           >
@@ -65,7 +70,7 @@ const navigate = useNavigate();
             </div>
           </div>
 
-          <button 
+          <button
             className="place-order-button button-primary"
             data-testid="place-order-button"
             onClick={createOrder}
