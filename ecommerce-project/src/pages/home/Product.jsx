@@ -4,7 +4,7 @@ import axios from "axios";
 import CheckmarkIcon from "../../assets/images/icons/checkmark.png";
 
 // 💡 1. Add live Render backend URL constant
-const BASE_URL = "https://onrender.com";
+const BASE_URL = "https://ecommerce-backend-hs0o.onrender.com";
 
 export function Product({ product, loadCart }) {
   const [quantity, setQuantity] = useState(1);
