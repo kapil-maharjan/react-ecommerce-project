@@ -1,6 +1,9 @@
-import dayjs from 'dayjs';
-import axios from 'axios';
-import { formatMoney } from '../../utils/money';
+import dayjs from "dayjs";
+import axios from "axios";
+import { formatMoney } from "../../utils/money";
+
+// 💡 1. Add your live Render backend URL constant here
+const BASE_URL = "https://ecommerce-backend-hs0o.onrender.com";
 
 export function DeliveryOptions({ cartItem, deliveryOptions, loadCart }) {
   return (
@@ -13,15 +16,16 @@ export function DeliveryOptions({ cartItem, deliveryOptions, loadCart }) {
           priceString = `${formatMoney(deliveryOption.priceCents)} - Shipping`;
         }
 
-        const updateDeliveryOption = async() => {
-          await axios.put(`/api/cart-items/${cartItem.productId}`, {
-            deliveryOptionId: deliveryOption.id
+        const updateDeliveryOption = async () => {
+          // 💡 2. Prepend BASE_URL to the absolute shipping option route
+          await axios.put(`${BASE_URL}/api/cart-items/${cartItem.productId}`, {
+            deliveryOptionId: deliveryOption.id,
           });
           await loadCart();
         };
         return (
-          <div 
-            key={deliveryOption.id} 
+          <div
+            key={deliveryOption.id}
             className="delivery-option"
             onClick={updateDeliveryOption}
           >
