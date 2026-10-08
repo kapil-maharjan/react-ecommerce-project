@@ -11,7 +11,10 @@ export function OrdersPage({ cart, loadCart }) {
 
   useEffect(() => {
     const fetchOrdersData = async () => {
-      const response = await axios.get(`${BASE_URL}/api/orders`);
+      // 💡 เติม ?expand=products ต่อท้าย เพื่อให้หลังบ้านยอมส่งข้อมูลรายละเอียดสินค้าในออเดอร์ออกมาด้วย
+      const response = await axios.get(
+        `${BASE_URL}/api/orders?expand=products`,
+      );
       setOrders(response.data);
     };
 
