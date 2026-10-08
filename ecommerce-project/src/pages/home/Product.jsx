@@ -1,46 +1,81 @@
-import { useState } from 'react';
-import { formatMoney } from '../../utils/money';
-import axios from 'axios';
-import CheckmarkIcon from '../../assets/images/icons/checkmark.png';
+import { useState } from "react";
+import { formatMoney } from "../../utils/money";
+import axios from "axios";
+import CheckmarkIcon from "../../assets/images/icons/checkmark.png";
+
+// 💡 1. Add live Render backend URL constant
+const BASE_URL = "https://onrender.com";
 
 export function Product({ product, loadCart }) {
   const [quantity, setQuantity] = useState(1);
   const [showAddedMessage, setShowAddedMessage] = useState(false);
 
   const addToCart = async () => {
-          await axios.post("/api/cart-items", {
-            productId: product.id,
-            quantity: quantity
-          });
-          await loadCart();
-          setShowAddedMessage(true);
+    // 💡 2. Prepend BASE_URL to the post route so adding to cart functions on production
+    await axios.post(`${BASE_URL}/api/cart-items`, {
+      productId: product.id,
+      quantity: quantity,
+    });
+    await loadCart();
+    setShowAddedMessage(true);
 
-          setTimeout(() => {
-            setShowAddedMessage(false);
-          }, 2000);
-        };
+    setTimeout(() => {
+      setShowAddedMessage(false);
+    }, 2000);
+  };
+
+  // const addToCart = async () => {
+  //         await axios.post("/api/cart-items", {
+  //           productId: product.id,
+  //           quantity: quantity
+  //         });
+  //         await loadCart();
+  //         setShowAddedMessage(true);
+
+  //         setTimeout(() => {
+  //           setShowAddedMessage(false);
+  //         }, 2000);
+  //       };
 
   const selectQuantity = (event) => {
-            const quantitySelected = Number(event.target.value);
-            setQuantity(quantitySelected);
-          };
+    const quantitySelected = Number(event.target.value);
+    setQuantity(quantitySelected);
+  };
 
   return (
-    <div 
-      className="product-container"
-      data-testid="product-container"
-    >
+    <div className="product-container" data-testid="product-container">
       <div className="product-image-container">
-        <img 
-          className="product-image" 
+        {/* 💡 3. Prepend BASE_URL to the product image asset path */}
+        <img
+          className="product-image"
           data-testid="product-image"
-          src={product.image} 
+          src={`${BASE_URL}${product.image}`}
         />
       </div>
+
+      {/* <div className="product-image-container">
+        <img
+          className="product-image"
+          data-testid="product-image"
+          src={product.image}
+        />
+      </div> */}
 
       <div className="product-name limit-text-to-2-lines">{product.name}</div>
 
       <div className="product-rating-container">
+        {/* 💡 4. Prepend BASE_URL to the static rating star graphic asset icons */}
+        <img
+          className="product-rating-stars"
+          data-testid="product-rating-stars-image"
+          src={`${BASE_URL}/images/ratings/rating-${product.rating.stars * 10}.png`}
+        />
+        <div className="product-rating-count link-primary">
+          {product.rating.count}
+        </div>
+      </div>
+
+      {/* <div className="product-rating-container">
         <img
           className="product-rating-stars"
           data-testid="product-rating-stars-image"
@@ -49,7 +84,7 @@ export function Product({ product, loadCart }) {
         <div className="product-rating-count link-primary">
           {product.rating.count}
         </div>
-      </div>
+      </div> */}
 
       <div className="product-price">{formatMoney(product.priceCents)}</div>
 
@@ -74,9 +109,9 @@ export function Product({ product, loadCart }) {
 
       <div className="product-spacer"></div>
 
-      <div 
+      <div
         className="added-to-cart"
-        style={{opacity: showAddedMessage ? 1 : 0 }}
+        style={{ opacity: showAddedMessage ? 1 : 0 }}
       >
         <img src={CheckmarkIcon} />
         Added
