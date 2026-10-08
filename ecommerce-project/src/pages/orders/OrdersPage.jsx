@@ -2,18 +2,20 @@ import { Header } from "../../components/Header";
 import "./OrdersPage.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { OrdersGrid } from './OrdersGrid';
+import { OrdersGrid } from "./OrdersGrid";
+
+const BASE_URL = "https://ecommerce-backend-hs0o.onrender.com";
 
 export function OrdersPage({ cart, loadCart }) {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const fetchOrdersData = async() => {
-      const response = await axios.get("/api/orders?expand=products");
+    const fetchOrdersData = async () => {
+      const response = await axios.get(`${BASE_URL}/api/orders`);
       setOrders(response.data);
     };
 
-      fetchOrdersData();
+    fetchOrdersData();
   }, []);
 
   return (
